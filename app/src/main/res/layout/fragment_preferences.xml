@@ -1,0 +1,123 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.github.emagra.istatgay.Preferences">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp">
+
+        <TextView
+            android:id="@+id/textOrientation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/orientation_question"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:padding="4dp"
+            android:textSize="@dimen/title_text"/>
+
+        <RadioGroup
+            android:id="@+id/radioOrientation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textOrientation"
+            android:layout_marginTop="30dp"
+            android:layout_alignStart="@+id/textOrientation"
+            >
+
+            <RadioButton
+                android:id="@+id/radioOrientationYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/yes"
+                android:padding="10dp"/>
+
+            <RadioButton
+                android:id="@+id/radioOrientationNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/no"
+                android:padding="10dp"/>
+
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/textSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sex"
+            android:layout_marginEnd="30dp"
+            android:padding="4dp"
+            android:textSize="@dimen/title_text"
+            android:layout_above="@+id/radioOrientation"
+            android:layout_alignEnd="@+id/submitBtn" />
+
+        <RadioGroup
+            android:id="@+id/radioSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/radioOrientation"
+            android:layout_alignEnd="@+id/textSex" >
+
+            <RadioButton
+                android:id="@+id/radioSexMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/male"
+                android:padding="10dp" />
+
+            <RadioButton
+                android:id="@+id/radioSexFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/female"
+                android:padding="10dp" />
+
+
+        </RadioGroup>
+
+        <ProgressBar
+            android:id="@+id/loadingCircle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="visible"
+            android:layout_marginBottom="15dp"
+            android:layout_above="@+id/submitBtn"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/submitBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:layout_above="@+id/id"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/primaryLightColor"
+            />
+
+        <TextView
+            android:id="@id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/id"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:padding="4dp"
+            />
+    </RelativeLayout>
+
+</FrameLayout>

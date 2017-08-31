@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">IstatGay</string>
+    <!-- InfoMainActvity -->
+    <string name="agree">Accetto</string>
+    <string name="inforTxtMain">Spiegazione...\nID generato random da Android evita duplicazioni</string>
+
+    <!-- IstatActvity -->
+    <string name="preference">Tendenza</string>
+    <string name="total_user">Utenti Totali</string>
+    <string name="male_per_cent">Percentuale Uomini</string>
+    <string name="female_per_cent">Percentuale Donne</string>
+    <string name="gay_per_cent">Percentuale Omosessuali</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="exit">Premi di nuovo per uscire!</string>
+
+
+    <!-- PreferencesFragment -->
+    <string name="orientation_question">Tendenza</string>
+    <string name="sex">Sesso</string>
+    <string name="yes">Omosessuale</string>
+    <string name="no">Etero</string>
+    <string name="male">Uomo</string>
+    <string name="female">Donna</string>
+    <string name="submit">Conferma!</string>
+    <string name="info_id">ID generato casualmente dal SO.</string>
+    <string name="id">ID generato casualmente!</string>
+    <string name="orientation_error">Seleziona l\'orientamento!</string>
+    <string name="sex_error">Seleziona il sesso!</string>
+
+    <!-- Auto-gen -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
