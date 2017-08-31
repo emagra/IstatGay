@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".IstatActivity" />
-        <activity android:name=".InfoUserMainActivity" />
     </application>
 
 </manifest>
