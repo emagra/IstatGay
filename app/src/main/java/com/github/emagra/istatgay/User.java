@@ -1,15 +1,20 @@
 package com.github.emagra.istatgay;
 
-/**
- * Created by caccola on 08/08/2017.
- */
-
 public class User {
 
     private String sex;
     private boolean status;
+    private long firstCommit,
+            commitTime;
 
     public User() {
+    }
+
+    public User(String sex, boolean status, long firstCommit, long commitTime) {
+        this.sex = sex;
+        this.status = status;
+        this.firstCommit = firstCommit;
+        this.commitTime = commitTime;
     }
 
     public User(String sex, boolean status) {
@@ -31,5 +36,21 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public long getCommitTime() {
+        return commitTime;
+    }
+
+    public void setCommitTime(long commitTime) {
+        this.commitTime = commitTime;
+    }
+
+    public long getFirstCommit() {
+        return firstCommit;
+    }
+
+    public void setFirstCommit(long firstCommit) {
+        this.firstCommit = firstCommit;
     }
 }

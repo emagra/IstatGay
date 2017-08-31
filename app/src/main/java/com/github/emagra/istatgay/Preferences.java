@@ -1,9 +1,7 @@
 package com.github.emagra.istatgay;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -14,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,11 +33,10 @@ public class Preferences extends DialogFragment {
 
     private static Preferences instance;
     private String id = IstatGay.uniqueID; // ID univoco relativo al telefono, evitare votazioni multiple
-
-    private RadioButton yes,
-            no,
-            male,
-            female;
+    private String TAG = getClass().getName();
+    private User user;
+    private RadioGroup radioOrientation,
+            radioSex;
     private Button submit;
     private TextView idTxt;
     private ProgressBar loading;
@@ -52,15 +49,14 @@ public class Preferences extends DialogFragment {
         // Required empty public constructor
     }
 
-
-    // TODO: ???
+    // singleton
     public static Preferences getInstance() {
         if (instance == null ){
             instance = new Preferences();
         }
         return instance;
     }
-    // TODO: ???
+
     public static Preferences newInstance(){
         Preferences instance = new Preferences();
         return instance;
@@ -71,17 +67,16 @@ public class Preferences extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_preferences, container, false);
+        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_preferences, container, false);
 
         // Istanza del DB
         mDB = FirebaseDatabase.getInstance();
         // Reference alla tabella response
-        mDBResponse = mDB.getReference().child("response");
+        mDBResponse = mDB.getReference().child(IstatGay.RESPONSEDB);
 
-        yes = (RadioButton)rootView.findViewById(R.id.radioOrientationYes);
-        no = (RadioButton)rootView.findViewById(R.id.radioOrientationNo);
-        male = (RadioButton)rootView.findViewById(R.id.radioSexMale);
-        female = (RadioButton)rootView.findViewById(R.id.radioSexFemale);
+        radioOrientation = (RadioGroup)rootView.findViewById(R.id.radioOrientation);
+        radioSex = (RadioGroup)rootView.findViewById(R.id.radioSex);
+
         submit = (Button)rootView.findViewById(R.id.submitBtn);
         idTxt = (TextView)rootView.findViewById(R.id.id);
         loading = (ProgressBar)rootView.findViewById(R.id.loadingCircle);
@@ -91,23 +86,21 @@ public class Preferences extends DialogFragment {
         mUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User u = dataSnapshot.getValue(User.class);
-                // null se primo avvio
-                if (u != null){
-                    if (u.isStatus()){
-                        yes.setChecked(true);
-                        no.setChecked(false);
+                // user recuperato dal DB. user = null se primo accesso
+                user = dataSnapshot.getValue(User.class);
+                if (user != null){
+                    // load user from DB and check radio button
+                    // orientation
+                    if (user.isStatus()){
+                        radioOrientation.check(R.id.radioOrientationYes);
                     } else {
-                        yes.setChecked(false);
-                        no.setChecked(true);
+                        radioOrientation.check(R.id.radioOrientationNo);
                     }
-                    if (u.getSex().equalsIgnoreCase("m")){
-                        male.setChecked(true);
-                        female.setChecked(false);
-                    } else {
-                        male.setChecked(false);
-                        female.setChecked(true);
-                    }
+                    // sex
+                    if (user.getSex().equalsIgnoreCase("m"))
+                        radioSex.check(R.id.radioSexMale);
+                    else
+                        radioSex.check(R.id.radioSexFemale);
                 }
                 loading.setVisibility(View.INVISIBLE);
             }
@@ -121,22 +114,35 @@ public class Preferences extends DialogFragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( !yes.isChecked() && !no.isChecked()) {
+                // check child. something must be checked
+                if ( radioOrientation.getCheckedRadioButtonId() < 0) {
                     Toast.makeText(getActivity(), R.string.orientation_error, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if ( !male.isChecked() && !female.isChecked()) {
+                if ( radioSex.getCheckedRadioButtonId() < 0 ) {
                     Toast.makeText(getActivity(), R.string.sex_error, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 loading.setVisibility(View.VISIBLE);
                 submit.setEnabled(false);
-                final User u = new User();
-                // TODO: if if if rly??
-                if (male.isChecked()) u.setSex("m");
-                if (female.isChecked()) u.setSex("f");
-                if (yes.isChecked()) u.setStatus(true);
-                if (no.isChecked()) u.setStatus(false);
+
+                // Primo accesso user = null. altrimento user da DB
+                final User u;
+                if (user == null){
+                    u = new User();
+                } else {
+                    u = user;
+                }
+                // short if. get id of checked radiogroup
+                u.setStatus(radioOrientation.getCheckedRadioButtonId() == R.id.radioOrientationYes ? true : false);
+                u.setSex(radioSex.getCheckedRadioButtonId() == R.id.radioSexMale ? IstatGay.MALE : IstatGay.FEMALE);
+
+                // at what time change occurs
+                u.setCommitTime(System.currentTimeMillis());
+
+                if (!(u.getFirstCommit() > 0)) {
+                    u.setFirstCommit(System.currentTimeMillis());
+                }
 
                 mDBResponse.child(id).setValue(u)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {

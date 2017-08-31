@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -20,11 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class IstatActivity extends AppCompatActivity {
     private DatabaseReference responseReference;
-    private TextView totalResponseTxt,
-            totalGayTxt,
-            totalMaleTxt,
-            totalFemaleTxt,
-            totalGenderTxt;
+    private TextView totalResponse,
+            totalMale,
+            totalFemale,
+            totalGay,
+            totalGayGender;
     private Button preference;
     private ProgressBar loading;
 
@@ -37,15 +36,16 @@ public class IstatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_istat);
 
-        totalResponseTxt = (TextView)findViewById(R.id.totalTxtViewNum);
-        totalGayTxt = (TextView)findViewById(R.id.gayTxtViewNum);
-        totalMaleTxt = (TextView)findViewById(R.id.malePerNum);
-        totalFemaleTxt = (TextView)findViewById(R.id.femalePerrNum);
-        totalGenderTxt  = (TextView)findViewById(R.id.gayGenderTxtViewNum);
+        totalResponse = (TextView)findViewById(R.id.totalUser);
+        totalMale = (TextView)findViewById(R.id.totalMale);
+        totalFemale = (TextView)findViewById(R.id.totalFemale);
+        totalGay = (TextView)findViewById(R.id.totalGay);
+        totalGayGender = (TextView)findViewById(R.id.totalGayGender);
         preference = (Button)findViewById(R.id.preferenceBtn);
         loading = (ProgressBar)findViewById(R.id.loadingCircle);
 
-        responseReference = FirebaseDatabase.getInstance().getReference().child(IstatGay.responseDB);
+        responseReference = FirebaseDatabase.getInstance().getReference().child(IstatGay.RESPONSEDB);
+
         responseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,16 +71,10 @@ public class IstatActivity extends AppCompatActivity {
         });
 
         // easter eggs
-        totalMaleTxt.setOnClickListener(new View.OnClickListener() {
+        totalMale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(IstatActivity.this, "Anche Dido è gay ma lui non lo sa!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        findViewById(R.id.malePer).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO:
             }
         });
 
@@ -98,19 +92,23 @@ public class IstatActivity extends AppCompatActivity {
     }
 
     private void getData(DataSnapshot d){
-        int totalResponse = 0;
-        int totalGay = 0;
-        int totalMale = 0;
-        int totalFemale = 0;
-        int totalGayMale = 0;
-        int totalGayFemale = 0;
-
+        int     totalResponse = 0,
+                totalMale = 0,
+                totalFemale = 0,
+                totalGay = 0,
+                totalGayMale = 0,
+                totalGayFemale = 0,
+                totalMalePer = 0,
+                totalFemalePer = 0,
+                totalGayPer = 0,
+                totalGayMalePer = 0,
+                totalGayFemalePer = 0;
         for (DataSnapshot sub : d.getChildren()){
             User u = sub.getValue(User.class);
             //Log.v(TAG, "\n\n" + u.toString() + "\n\n");
             if (u == null) continue;
             totalResponse++;
-            if (u.getSex().equalsIgnoreCase("m")){
+            if (u.getSex().equalsIgnoreCase(IstatGay.MALE)){
                 totalMale++;
                 if (u.isStatus()){
                     totalGay++;
@@ -126,20 +124,20 @@ public class IstatActivity extends AppCompatActivity {
 
         }
         if(totalGay > 0 ) {
-            totalGayMale = totalGayMale * 100 / totalGay;
-            totalGayFemale = totalGayFemale * 100 / totalGay;
-            totalGay = totalGay * 100 / totalResponse;
+            totalGayMalePer = totalGayMale * 100 / totalGay;
+            totalGayFemalePer = totalGayFemale * 100 / totalGay;
+            totalGayPer = totalGay * 100 / totalResponse;
         }
         if (totalResponse > 0) {
-            totalMale = totalMale * 100 / totalResponse;
-            totalFemale = totalFemale * 100 / totalResponse;
+            totalMalePer = totalMale * 100 / totalResponse;
+            totalFemalePer = totalFemale * 100 / totalResponse;
         }
 
-        totalResponseTxt.setText(String.format(IstatGay.lang, "%d", totalResponse)); // + " - " + String.valueOf(totalMale) + "% Uomini - " + String.valueOf(totalFemale) + "% Donne");
-        totalMaleTxt.setText(String.format(IstatGay.lang, "%d%%", totalMale));
-        totalFemaleTxt.setText(String.format(IstatGay.lang, "%d%%", totalFemale));
-        totalGayTxt.setText(String.format(IstatGay.lang, "%d%%", totalGay)); // + String.valueOf(totalGayMale) + "% Uomini \n" + String.valueOf(totalGayFemale) + "% Donne");
-        totalGenderTxt.setText(String.format(IstatGay.lang, "%d%% Uomini - %d%% Donne", totalGayMale, totalGayFemale));
+        this.totalResponse.setText(String.format(IstatGay.lang, "%d", totalResponse)); // + " - " + String.valueOf(totalMale) + "% Uomini - " + String.valueOf(totalFemale) + "% Donne");
+        this.totalMale.setText(String.format(IstatGay.lang, "%d - %d%%", totalMale, totalMalePer));
+        this.totalFemale.setText(String.format(IstatGay.lang, "%d - %d%%", totalFemale, totalFemalePer));
+        this.totalGay.setText(String.format(IstatGay.lang, "%d - %d%%", totalGay, totalGayPer)); // + String.valueOf(totalGayMale) + "% Uomini \n" + String.valueOf(totalGayFemale) + "% Donne");
+        this.totalGayGender.setText(String.format(IstatGay.lang, "%d - %d%% Uomini // %d - %d%% Donne", totalGayMale, totalGayMalePer, totalGayFemale, totalGayFemalePer));
     }
 
     @Override
@@ -158,5 +156,11 @@ public class IstatActivity extends AppCompatActivity {
                 twice = false;
             }
         }, 2000);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // TODO: rimuovere i listner vari
     }
 }

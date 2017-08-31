@@ -6,11 +6,10 @@
 
     <!-- IstatActvity -->
     <string name="preference">Tendenza</string>
-    <string name="total_user">Utenti Totali</string>
-    <string name="male_per_cent">Percentuale Uomini</string>
-    <string name="female_per_cent">Percentuale Donne</string>
-    <string name="gay_per_cent">Percentuale Omosessuali</string>
-    <string name="title_activity_test">TestActivity</string>
+    <string name="total_user">Risposte totali:</string>
+    <string name="total_male_user">Percentuale uomini:</string>
+    <string name="total_female_user">Percentuale donne:</string>
+    <string name="total_gay">Percentuale omosessuali:</string>
     <string name="exit">Premi di nuovo per uscire!</string>
 
 
@@ -22,7 +21,7 @@
     <string name="male">Uomo</string>
     <string name="female">Donna</string>
     <string name="submit">Conferma!</string>
-    <string name="info_id">ID generato casualmente dal SO.</string>
+    <string name="info_id">ID generato casualmente da Android.</string>
     <string name="id">ID generato casualmente!</string>
     <string name="orientation_error">Seleziona l\'orientamento!</string>
     <string name="sex_error">Seleziona il sesso!</string>

@@ -21,15 +21,15 @@ public class InfoMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_main);
         toNext = new Intent(InfoMainActivity.this, IstatActivity.class);
 
-        sp = getSharedPreferences("ISTAT_GAY", Context.MODE_PRIVATE);
+        sp = getSharedPreferences(IstatGay.SHAREDPREF, Context.MODE_PRIVATE);
         editor = sp.edit();
 
         Button agree = (Button)findViewById(R.id.agreeBtn);
 
-        sp = getSharedPreferences("ISTAT_GAY", Context.MODE_PRIVATE);
+        sp = getSharedPreferences(IstatGay.SHAREDPREF, Context.MODE_PRIVATE);
         editor = sp.edit();
 
-        if (sp.getBoolean("AGREE", false)){
+        if (sp.getBoolean(IstatGay.AGREE, false)){
             startActivity(toNext);
         }
 

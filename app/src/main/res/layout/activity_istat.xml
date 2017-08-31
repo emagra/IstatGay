@@ -45,102 +45,102 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/totalTxtView"
+                android:id="@+id/totalUserTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:padding="4dp"
-                android:text="Risposte totali:"
+                android:text="@string/total_user"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/totalTxtViewNum"
+                android:id="@+id/totalUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:hint=""
+                android:hint="0"
                 android:padding="4dp"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/malePer"
+                android:id="@+id/totalMaleTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:padding="4dp"
-                android:text="Percentuale di uomini:"
+                android:text="@string/total_male_user"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/malePerNum"
+                android:id="@+id/totalMale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:padding="4dp"
-                android:text=""
+                android:hint="0 - 0%"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/femalePer"
+                android:id="@+id/totalFemaleTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:padding="4dp"
-                android:text="Percentuale di donne"
+                android:text="@string/total_female_user"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/femalePerrNum"
+                android:id="@+id/totalFemale"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:padding="4dp"
-                android:text=""
+                android:hint="0 - 0%"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/gayTxtView"
+                android:id="@+id/totalGayTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:padding="4dp"
-                android:text="Percentuale di Omosessuali:"
+                android:text="@string/total_gay"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/gayTxtViewNum"
+                android:id="@+id/totalGay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:hint=""
+                android:hint="0 - 0%"
                 android:padding="4dp"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/gayGenderTxtViewNum"
+                android:id="@+id/totalGayGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:hint=""
+                android:hint="0 - 0%"
                 android:padding="4dp"
                 android:textSize="16sp" />
 

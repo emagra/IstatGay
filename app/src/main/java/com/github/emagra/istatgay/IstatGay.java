@@ -8,9 +8,13 @@ import java.util.Locale;
 
 public class IstatGay extends Application{
 
+    public static final String
+            MALE = "m", // char on DB stand for male and female
+            FEMALE = "f", // same
+            RESPONSEDB = "response", // child name in firebase DB
+            SHAREDPREF = "ISTAT_GAY", AGREE = "AGREE";
     public static String uniqueID;
     public static Locale lang;
-    public static final String responseDB = "response";
 
     @Override
     public void onCreate() {
